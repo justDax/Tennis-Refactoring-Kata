@@ -8,23 +8,23 @@ class TennisGame3
       
   def won_point(n)
     if n == @player1_name
-        @player1_score += 1
+      @player1_score += 1
     else
-        @player2_score += 1
+      @player2_score += 1
     end
   end
   
   def score
     if (@player1_score < 4 and @player2_score < 4) and (@player1_score + @player2_score < 6)
-      p = ["Love", "Fifteen", "Thirty", "Forty"]
-      s = p[@player1_score]
-      @player1_score == @player2_score ? s + "-All" : s + "-" + p[@player2_score]
+      score_words = ["Love", "Fifteen", "Thirty", "Forty"]
+      score_word = score_words[@player1_score]
+      @player1_score == @player2_score ? score_word + "-All" : score_word + "-" + score_words[@player2_score]
     else
       if (@player1_score == @player2_score)
         "Deuce"
       else
-        s = @player1_score > @player2_score ? @player1_name : @player2_name
-        (@player1_score-@player2_score)*(@player1_score-@player2_score) == 1 ? "Advantage " + s : "Win for " + s
+        winning_player_name = @player1_score > @player2_score ? @player1_name : @player2_name
+        (@player1_score - @player2_score) * (@player1_score - @player2_score) == 1 ? "Advantage " + winning_player_name : "Win for " + winning_player_name
       end
     end
   end
