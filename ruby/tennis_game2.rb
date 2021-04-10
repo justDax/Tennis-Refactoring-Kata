@@ -16,20 +16,17 @@ class TennisGame2
 
   def score
     result = ""
-    if (@p1_points == @p2_points and @p1_points < 3)
-      if (@p1_points == 0)
-        result = "Love"
+    if (@p1_points == @p2_points)
+      case @p1_points
+        when 0
+          result = "Love-All"
+        when 1
+          result = "Fifteen-All"
+        when 2
+          result = "Thirty-All"
+        else
+          result = "Deuce"
       end
-      if (@p1_points == 1)
-        result = "Fifteen"
-      end
-      if (@p1_points == 2)
-        result = "Thirty"
-      end
-      result += "-All"
-    end
-    if (@p1_points == @p2_points and @p1_points > 2)
-      result = "Deuce"
     end
     
     p1_res = ""
