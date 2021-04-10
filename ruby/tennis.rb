@@ -17,8 +17,6 @@ class TennisGame1
   end
   
   def score
-    result = ""
-
     # mapping for the scores of 3 or below
     score_number_to_word_hash = {
       0 => "Love",
@@ -29,23 +27,16 @@ class TennisGame1
 
     if @p1_points == @p2_points
       score_word = score_number_to_word_hash.reject{|key| key == 3}[@p1_points]
-      result = score_word ? score_word + "-All" : "Deuce"
+      return score_word ? score_word + "-All" : "Deuce"
     elsif @p1_points >= 4 or @p2_points >= 4
-      minus_result = @p1_points - @p2_points
-      if (minus_result == 1)
-        result = "Advantage player1"
-      elsif (minus_result == -1)
-        result = "Advantage player2"
-      elsif (minus_result >= 2)
-        result = "Win for player1"
-      else
-        result = "Win for player2"
-      end
+      score_difference = @p1_points - @p2_points
+      winning_player = @p1_points > @p2_points ? @player1_name : @player2_name
+
+      return score_difference.abs == 1 ? "Advantage #{winning_player}" : "Win for #{winning_player}"
     else
       # here both players must have 3 points or less
-      result = [@p1_points, @p2_points].map{|points| score_number_to_word_hash[points] }.join("-")
+      return [@p1_points, @p2_points].map{|points| score_number_to_word_hash[points] }.join("-")
     end
-    result
   end
   
 end
