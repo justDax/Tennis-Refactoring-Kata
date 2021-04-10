@@ -13,6 +13,7 @@ class TennisGame2
       @p2_points += 1
     end
   end
+  
 
   def score
     result = ""
@@ -29,40 +30,33 @@ class TennisGame2
       end
     
     elsif @p1_points < 4 && @p2_points < 4
-      p1_res =
-        case @p1_points
-          when 0
-            "Love"
-          when 1
-            "Fifteen"
-          when 2
-            "Thirty"
-          when 3
-            "Forty"
-        end
-      
-      p2_res =
-        case @p2_points
-          when 0
-            "Love"
-          when 1
-            "Fifteen"
-          when 2
-            "Thirty"
-          when 3
-            "Forty"
-        end
+      p1_res = points_to_word(@p1_points)
+      p2_res = points_to_word(@p2_points)
       
       result = p1_res + "-" + p2_res
     else
       if @p1_points > @p2_points
         result = (@p1_points - @p2_points) >= 2 ? "Win for " + @player1_name : "Advantage " + @player1_name
       else
-        result = (@p2_points - @p1_points) >= 2 ? "Win for " + @player1_name : "Advantage " + @player1_name
+        result = (@p2_points - @p1_points) >= 2 ? "Win for " + @player2_name : "Advantage " + @player2_name
       end
     end
 
     result
+  end
+
+
+  def points_to_word(points)
+    case points
+      when 0
+        "Love"
+      when 1
+        "Fifteen"
+      when 2
+        "Thirty"
+      when 3
+        "Forty"
+    end
   end
 
 end
