@@ -161,17 +161,6 @@ class TennisGame2
     result
   end
 
-  def setp1_score(number)
-    (0..number).each do |i|
-        p1Score()
-    end
-  end
-
-  def setp2_score(number)
-    (0..number).each do |i|
-      p2Score()
-    end
-  end
 
   def p1_score
     @p1_points += 1
