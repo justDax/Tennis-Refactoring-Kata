@@ -6,37 +6,33 @@ class TennisGame2
     @p2_points = 0
   end
       
+
+  # Assigns 1 point to a player given its name
+  #
   def won_point(player_name)
     if player_name == @player1_name
       @p1_points += 1
-    else
+    elsif player_name == @player2_name
       @p2_points += 1
     end
   end
   
 
   def score
-    result = ""
     if @p1_points == @p2_points
-      result = @p1_points >= 3 ? "Deuce" : points_to_word(@p1_points) + "-All"
-    
+      return @p1_points >= 3 ? "Deuce" : points_to_word(@p1_points) + "-All"
     elsif @p1_points < 4 && @p2_points < 4
-      p1_res = points_to_word(@p1_points)
-      p2_res = points_to_word(@p2_points)
-      
-      result = p1_res + "-" + p2_res
+      return points_to_word(@p1_points) + "-" + points_to_word(@p2_points)
     else
-      if @p1_points > @p2_points
-        result = (@p1_points - @p2_points) >= 2 ? "Win for " + @player1_name : "Advantage " + @player1_name
-      else
-        result = (@p2_points - @p1_points) >= 2 ? "Win for " + @player2_name : "Advantage " + @player2_name
-      end
+      winning_player = @p1_points > @p2_points ? @player1_name : @player2_name
+      points_diff = (@p1_points - @p2_points).abs
+      return points_diff >= 2 ? "Win for #{winning_player}" : "Advantage #{winning_player}"
     end
-
-    result
   end
 
 
+  # Converts scores from 0 to 3 into words
+  #
   def points_to_word(points)
     case points
       when 0
