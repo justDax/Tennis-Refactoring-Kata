@@ -18,7 +18,6 @@ class TennisGame1
   
   def score
     result = ""
-    temp_score = 0
     if @p1_points == @p2_points
       result = 
         {
@@ -38,20 +37,15 @@ class TennisGame1
         result = "Win for player2"
       end
     else
-      (1...3).each do |i|
-        if (i == 1)
-          temp_score = @p1_points
-        else
-          result += "-"
-          temp_score = @p2_points
-        end
-        result += 
-          {
+      # here both players must have 3 points or less
+      [@p1_points, @p2_points].each_with_index do |points, i|
+        result += {
             0 => "Love",
             1 => "Fifteen",
             2 => "Thirty",
             3 => "Forty",
-          }[temp_score]
+          }[points]
+        result += "-" if i == 0
       end
     end
     result
