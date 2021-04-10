@@ -27,68 +27,37 @@ class TennisGame2
         else
           result = "Deuce"
       end
-    end
     
-    p1_res = ""
-    p2_res = ""
-    if (@p1_points > 0 and @p2_points == 0)
-      if (@p1_points == 1)
-        p1_res = "Fifteen"
-      end
-      if (@p1_points == 2)
-        p1_res = "Thirty"
-      end
-      if (@p1_points == 3)
-        p1_res = "Forty"
-      end
-      p2_res = "Love"
-      result = p1_res + "-" + p2_res
-    end
-    if (@p2_points > 0 and @p1_points == 0)
-      if (@p2_points == 1)
-        p2_res = "Fifteen"
-      end
-      if (@p2_points == 2)
-        p2_res = "Thirty"
-      end
-      if (@p2_points == 3)
-        p2_res = "Forty"
-      end
+    elsif (@p1_points < 4 && @p2_points < 4)
+      p1_res =
+        case @p1_points
+          when 0
+            "Love"
+          when 1
+            "Fifteen"
+          when 2
+            "Thirty"
+          when 3
+            "Forty"
+        end
       
-      p1_res = "Love"
+      p2_res =
+        case @p2_points
+          when 0
+            "Love"
+          when 1
+            "Fifteen"
+          when 2
+            "Thirty"
+          when 3
+            "Forty"
+        end
+      
       result = p1_res + "-" + p2_res
     end
+
     
-    if (@p1_points > @p2_points and @p1_points < 4)
-      if (@p1_points == 2)
-        p1_res = "Thirty"
-      end
-      if (@p1_points == 3)
-        p1_res = "Forty"
-      end
-      if (@p2_points == 1)
-        p2_res="Fifteen"
-      end
-      if (@p2_points == 2)
-        p2_res = "Thirty"
-      end
-      result = p1_res + "-" + p2_res
-    end
-    if (@p2_points > @p1_points and @p2_points < 4)
-      if (@p2_points == 2)
-        p2_res = "Thirty"
-      end
-      if (@p2_points == 3)
-        p2_res="Forty"
-      end
-      if (@p1_points == 1)
-        p1_res = "Fifteen"
-      end
-      if (@p1_points == 2)
-        p1_res = "Thirty"
-      end
-      result = p1_res + "-" + p2_res
-    end
+
     if (@p1_points > @p2_points and @p2_points >= 3)
       result = "Advantage " + @player1_name
     end
