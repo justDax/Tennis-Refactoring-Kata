@@ -18,16 +18,7 @@ class TennisGame2
   def score
     result = ""
     if @p1_points == @p2_points
-      case @p1_points
-        when 0
-          result = "Love-All"
-        when 1
-          result = "Fifteen-All"
-        when 2
-          result = "Thirty-All"
-        else
-          result = "Deuce"
-      end
+      result = @p1_points >= 3 ? "Deuce" : points_to_word(@p1_points) + "-All"
     
     elsif @p1_points < 4 && @p2_points < 4
       p1_res = points_to_word(@p1_points)
