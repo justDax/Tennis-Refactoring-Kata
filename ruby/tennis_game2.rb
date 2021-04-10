@@ -16,7 +16,7 @@ class TennisGame2
 
   def score
     result = ""
-    if (@p1_points == @p2_points)
+    if @p1_points == @p2_points
       case @p1_points
         when 0
           result = "Love-All"
@@ -28,7 +28,7 @@ class TennisGame2
           result = "Deuce"
       end
     
-    elsif (@p1_points < 4 && @p2_points < 4)
+    elsif @p1_points < 4 && @p2_points < 4
       p1_res =
         case @p1_points
           when 0
@@ -54,22 +54,14 @@ class TennisGame2
         end
       
       result = p1_res + "-" + p2_res
+    else
+      if @p1_points > @p2_points
+        result = (@p1_points - @p2_points) >= 2 ? "Win for " + @player1_name : "Advantage " + @player1_name
+      else
+        result = (@p2_points - @p1_points) >= 2 ? "Win for " + @player1_name : "Advantage " + @player1_name
+      end
     end
 
-    
-
-    if (@p1_points > @p2_points and @p2_points >= 3)
-      result = "Advantage " + @player1_name
-    end
-    if (@p2_points > @p1_points and @p1_points >= 3)
-      result = "Advantage " + @player2_name
-    end
-    if (@p1_points >= 4 and @p2_points >= 0 and (@p1_points - @p2_points) >= 2)
-      result = "Win for " + @player1_name
-    end
-    if (@p2_points >= 4 and @p1_points >= 0 and (@p2_points - @p1_points) >= 2)
-      result = "Win for " + @player2_name
-    end
     result
   end
 
