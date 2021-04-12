@@ -1,3 +1,5 @@
+require_relative "tennis_game/player"
+
 class TennisGame1
   
   # mapping for the scores of 3 or below
@@ -8,42 +10,46 @@ class TennisGame1
     3 => "Forty",
   }.freeze
 
+  attr_reader :players
 
+  
   def initialize(player1_name, player2_name)
-    @player1_name = player1_name
-    @player2_name = player2_name
-    @p1_points = 0
-    @p2_points = 0
+    @players = []
+    @players << TennisGame::Player.new(player1_name)
+    @players << TennisGame::Player.new(player2_name)
   end
-        
+     
+  
+  # returns a player by its name
+  #
+  def player(player_name)
+    players.find{|player| player.name == player_name}
+  end
+
   
   # Assigns a single point by player name
   #
   def won_point(player_name)
-    case player_name
-      when @player1_name
-        @p1_points += 1
-      when @player2_name
-        @p2_points += 1
-      else
-        raise StandardError.new("No player names #{player_name} is playing in the current game")  
-    end
+    _player = player(player_name)
+    raise StandardError.new("No player names #{player_name} is playing in the current game") if _player.nil?
+    _player.add_point
   end
 
   
   # Returns the match's score in words
   #
   def score
-    if @p1_points == @p2_points
-      score_word = SCORE_NUMBER_TO_WORD_HASH.reject{|key| key == 3}[@p1_points]
+    p1_score = players.first.score 
+    p2_score = players[1].score
+    if p1_score == p2_score
+      score_word = SCORE_NUMBER_TO_WORD_HASH.reject{|key| key == 3}[p1_score]
       return score_word ? score_word + "-All" : "Deuce"
-    elsif @p1_points >= 4 or @p2_points >= 4
-      score_difference = @p1_points - @p2_points
-      winning_player = @p1_points > @p2_points ? @player1_name : @player2_name
-      return score_difference.abs == 1 ? "Advantage #{winning_player}" : "Win for #{winning_player}"
+    elsif p1_score >= 4 || p2_score >= 4
+      winning_player = players.sort{|a, b| a.score <=> b.score}.last
+      return (p1_score - p2_score).abs == 1 ? "Advantage #{winning_player.name}" : "Win for #{winning_player.name}"
     else
       # here both players must have 3 points or less
-      return [@p1_points, @p2_points].map{|points| SCORE_NUMBER_TO_WORD_HASH[points] }.join("-")
+      return players.map{|player| SCORE_NUMBER_TO_WORD_HASH[player.score] }.join("-")
     end
   end
   
