@@ -3,12 +3,12 @@ require_relative "tennis_game/player"
 class TennisGame
   
   # mapping for the scores of 3 or below
-  SCORE_NUMBER_TO_WORD_HASH = {
-    0 => "Love",
-    1 => "Fifteen",
-    2 => "Thirty",
-    3 => "Forty",
-  }.freeze
+  SCORE_NUMBER_TO_WORD_MAP = [
+    "Love",
+    "Fifteen",
+    "Thirty",
+    "Forty"
+  ].freeze
 
   attr_reader :players
 
@@ -42,14 +42,14 @@ class TennisGame
     p1_score = players.first.score 
     p2_score = players[1].score
     if p1_score == p2_score
-      score_word = SCORE_NUMBER_TO_WORD_HASH.reject{|key| key == 3}[p1_score]
+      score_word = SCORE_NUMBER_TO_WORD_MAP[0..-2][p1_score]
       return score_word ? score_word + "-All" : "Deuce"
     elsif p1_score >= 4 || p2_score >= 4
       winning_player = players.sort{|a, b| a.score <=> b.score}.last
       return (p1_score - p2_score).abs == 1 ? "Advantage #{winning_player.name}" : "Win for #{winning_player.name}"
     else
       # here both players must have 3 points or less
-      return players.map{|player| SCORE_NUMBER_TO_WORD_HASH[player.score] }.join("-")
+      return players.map{|player| SCORE_NUMBER_TO_WORD_MAP[player.score] }.join("-")
     end
   end
   
