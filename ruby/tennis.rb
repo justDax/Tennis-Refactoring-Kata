@@ -1,3 +1,5 @@
-require_relative "tennis_game1"
-require_relative "tennis_game2"
-require_relative "tennis_game3"
+require_relative "tennis_game"
+
+class TennisGame1 < TennisGame; end
+class TennisGame2 < TennisGame; end
+class TennisGame3 < TennisGame; end
